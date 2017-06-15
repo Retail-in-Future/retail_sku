@@ -5,9 +5,7 @@ import com.thoughtworks.retail_in_future.repository.ProductInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.util.HashMap;
@@ -26,5 +24,13 @@ public class ProductApi {
         objectMap.put("result", 1);
         objectMap.put("data", product);
         return new ResponseEntity(objectMap, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/products/{sku}/stock", method = RequestMethod.POST)
+    public void appendStock(@PathVariable("sku") String sku) {
+        ProductInfo product = productInfoRepository.findFirstBySku(sku);
+        product.setStock(product.getStock() + 1);
+
+        productInfoRepository.save(product);
     }
 }
