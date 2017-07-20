@@ -13,7 +13,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5000");
+        registry.addMapping("/**").allowedOrigins("http://localhost:5000");
     }
 }
