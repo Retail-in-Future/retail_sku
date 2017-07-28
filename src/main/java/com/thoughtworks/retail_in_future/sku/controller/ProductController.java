@@ -2,6 +2,7 @@ package com.thoughtworks.retail_in_future.sku.controller;
 
 
 import com.thoughtworks.retail_in_future.sku.bean.Product;
+import com.thoughtworks.retail_in_future.sku.exception.DuplicateException;
 import com.thoughtworks.retail_in_future.sku.service.ProductService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class ProductController {
     @RequestMapping(method= RequestMethod.POST, produces = "application/json")
     public ResponseEntity<Map<String, Object>> create(
             @RequestBody Product product
-    ){
+    ) throws DuplicateException {
 
         productService.create(product);
 
@@ -52,9 +53,9 @@ public class ProductController {
     @RequestMapping(method= RequestMethod.PUT, produces = "application/json")
     public ResponseEntity<Map<String, Object>> update(
             @RequestBody Product product
-    ){
+    ) throws DuplicateException {
 
-        productService.create(product);
+        productService.update(product);
 
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("result", 1);
