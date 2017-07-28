@@ -21,6 +21,15 @@ repositories {
     mavenCentral()
 }
 
+ask bootRunSit(type: org.springframework.boot.gradle.run.BootRunTask, dependsOn: 'build') {
+    group = 'Application'
+    doFirst() {
+        main = project.mainClassName
+        classpath = sourceSets.main.runtimeClasspath
+        systemProperty 'spring.profiles.active', 'sit'
+    }
+}
+
 
 
 dependencies {
